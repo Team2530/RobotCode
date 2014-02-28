@@ -166,7 +166,7 @@ public:
 			pneumatics->Shooter();
 
 			//Turns the camera			
-			camera_servo->turnCamera()
+			camera_servo->turnCamera();
 
 		}
 	}
