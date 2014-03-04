@@ -1,13 +1,11 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+#Ignore object files
+*.[oa]
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
+#Ignore any project files
+.cproject
+.project
+.wrmakefile
+.wrproject
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+#Ignore any output files
+PPC603gnu
