@@ -17,11 +17,11 @@ void Pneumatics::RetractCylinder(){
 void Pneumatics::Shooter(){
 
 
-	if (joystick->GetRawButton(6)){
+	if (joystick->GetRawAxis(3) >= 0.1){
 		FireShooter();
 	}
 
-	else if (joystick->GetRawButton(5)){
+	else if (joystick->GetRawButton(6)){
 		FireMiddleCylinder();
 	}
 	else{
