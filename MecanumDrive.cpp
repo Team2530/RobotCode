@@ -49,6 +49,8 @@ void MecanumDrive::GetJoystickValues(float &magnitude, float &direction, float &
 		twist = 0;
 	}
 
+	twist *= .75;  //Make the twist less sensitive
+
 	//Perform maths to make range of throttle between .2 and 1 (rather than -1 and 1)
 	throttle += 1;
 	throttle *= 0.4;
