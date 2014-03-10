@@ -12,5 +12,6 @@ public:
 	Pneumatics();
 	void FireShooter();
 	void RetractCylinder();
+	void FireMiddleCylinder();
 
 };
