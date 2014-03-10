@@ -9,7 +9,11 @@
 /*
  * This is the final code for Team 2530's robot, Humperdinck.
  * Contributors: ADD YOUR NAME HERE
+ * 		MENTOR: Tim Torzweski (Dad)
  *      Bridger Herman
+ *      Alvin Faisal
+ *      Peter Torzweski
+ *      
  * 
  * 
  */
