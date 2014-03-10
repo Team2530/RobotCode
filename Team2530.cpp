@@ -19,7 +19,7 @@ class Team2530 : public SimpleRobot {
 	UltraSonic *sonic;  //Sonic sensor
 	Gyro *myGyro;  //Gyro
 	Pneumatics *pneumatics;  //Shooter/claw pneumatics object
-	Relay * m_relay;  //Compressor Relay
+	Compressor *m_compressor;  //Compressor Relay
 	CameraServo * camera_servo;  //Servo to move the camera
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
@@ -41,7 +41,7 @@ public:
 
 		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
 
-		m_compressor= new Compressor (1, 1);	//creates the compressor
+		m_compressor = new Compressor (1, 1);	//creates the compressor
 
 		camera_servo = new CameraServo(10);
 		pneumatics = new Pneumatics();
@@ -76,7 +76,7 @@ public:
 			}
 		}
 	}
-}
+
 
 	/*
 	 * Operates the Team 2530 robot Tele-Op mode
