@@ -4,15 +4,16 @@
 #include "MecanumDrive.h"
 #include <math.h>
 #include "CameraServo.h"
+#include "Arm.h"
 
 /*
  * This is the final code for Team 2530's robot, Humperdinck.
- * Contributors:
+ * Contributors: ADD YOUR NAME HERE
+ *      Bridger Herman
  * 
  * 
  */
-class Team2530 : public SimpleRobot
-{
+class Team2530 : public SimpleRobot {
 	Joystick *joystick;  //Joystick for driver's use
 	DriverStation *ds;	// driver station object
 	UltraSonic *sonic;  //Sonic sensor
@@ -21,6 +22,7 @@ class Team2530 : public SimpleRobot
 	Relay * m_relay;  //Compressor Relay
 	CameraServo * camera_servo;  //Servo to move the camera
 	MecanumDrive *myDrive;  //MecanumDrive object
+	Arm *robotArm;  //Arm object
 
 	enum							// Driver Station jumpers to control program operation
 	{ ARCADE_MODE = 1,				// Tank/Arcade jumper is on DS Input 1 (Jumper present is arcade)
@@ -39,51 +41,57 @@ public:
 
 		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
 
-		m_relay = new Relay (1, Relay::kForward);	//creates the compressor
+		m_compressor= new Compressor (1, 1);	//creates the compressor
 
 		camera_servo = new CameraServo(10);
 		pneumatics = new Pneumatics();
 
+		robotArm = new Arm();  //Arm for lifting the ball
+
 	}
 
-	/**
-	 * Drive left & right motors for 2 seconds, enabled by a jumper (jumper
-	 * must be in for autonomous to operate).
+	/*
+	 * Spool motors up and down, then fire the shooter. Hopefully don't run into driver stations at other end of field.
+	 * ADD KINECT STUFF HERE
+	 * as well as a 5 second wait for if kinct stuff is not true
 	 */
 	void Autonomous()
 	{
 		float x;
 		float range;
 		while (IsAutonomous()) {
-			range = sonic->GetDistanceIN();
-			while (range >= 180) {
-				for (int i = 0; i <= 10; i++) {  //Spool up motors
-					range = sonic->GetDistanceIN();
-					x = i;
-					x *= .1;
-					myDrive->Drive_RobotOriented(x,0,0);
-					Wait(.1);
-				}
-				for (int i = 10; i >= 0; i--) {  //Spool down motors
-					range = sonic->GetDistanceIN();
-					x = i;
-					x *= .1;
-					myDrive->Drive_RobotOriented(x,0,0);
-					Wait(.1);
-				}
+			for (int i = 0; i <= 10; i++) {  //Spool up motors
+				range = sonic->GetDistanceIN();
+				x = i;
+				x *= .1;
+				myDrive->Drive_RobotOriented(x,0,0);
+				Wait(.1);
+			}
+			for (int i = 10; i >= 0; i--) {  //Spool down motors
+				range = sonic->GetDistanceIN();
+				x = i;
+				x *= .1;
+				myDrive->Drive_RobotOriented(x,0,0);
+				Wait(.1);
 			}
 		}
 	}
+}
 
 	/*
 	 * Operates the Team 2530 robot Tele-Op mode
-	 * Contains code for MecanumDrive, including joystick deadzones and power level control
+	 * Contains: 
+	 * MecanumDrive, including joystick deadzones, power level control, field oriented
+	 * Compressor engage
+	 * Pneumatics systems
+	 * Camera servo
+	 * Arm operation
 	 */
-	void OperatorControl()
-	{
+	void OperatorControl() {
 		//Engage the compressor
-		m_relay->Set(Relay::kForward);
-		
+		m_compressor->Start();
+
+		//Reset the gyro
 		myGyro->Reset();
 
 		//Define all the variables that the joystick needs
@@ -94,7 +102,7 @@ public:
 
 		//Angle of Gyro
 		float angle;
-		int anglei;  //User viewing
+		int anglei;  //User viewing for gyro readout
 		//If robot is in field-oriented or robot-oriented
 		bool isFieldOriented = true;  //Start out in field-oriented mode
 
@@ -102,7 +110,7 @@ public:
 		int dataSize = 10;
 		float distance[dataSize];
 		float avg;
-		int avgi;  //User viewing
+		int avgi;  //User viewing for distance sensor
 		int loopCount = 0;
 
 		//Tele-Op Mode
@@ -130,13 +138,13 @@ public:
 			//GYRO/FIELD-ORIENTED Stuff~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			angle = myGyro->GetAngle();  //Get the angle of the gyro
 
-			if (joystick->GetRawButton(11)) {  //Disable Field Oriented
+			if (joystick->GetRawButton(4)) {  //Disable Field Oriented
 				isFieldOriented = false;
 			}
-			if (joystick->GetRawButton(12)) {  //Enable Field Oriented
+			if (joystick->GetRawButton(6)) {  //Enable Field Oriented
 				isFieldOriented = true;
 			}
-			if (joystick->GetRawButton(8)) {  //Reset the Gyro
+			if (joystick->GetRawButton(2)) {  //Reset the Gyro
 				myGyro->Reset();
 			}
 
@@ -162,12 +170,14 @@ public:
 			SmartDashboard::PutNumber("Gyro:",anglei);
 			SmartDashboard::PutBoolean("Field Oriented:", isFieldOriented);
 
-			//Engage the shooter mechanism
+			//Shooter actions
 			pneumatics->Shooter();
 
 			//Turns the camera			
 			camera_servo->turnCamera();
 
+			//Arm actions
+			robotArm->OperateArm();
 		}
 	}
 };
