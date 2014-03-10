@@ -3,8 +3,8 @@ class Pneumatics {
 
 
 	DoubleSolenoid *shooterSolenoid1;
-	//DoubleSolenoid *shooterSolenoid2;
-	//DoubleSolenoid *shooterSolenoid3;
+	DoubleSolenoid *shooterSolenoid2;
+	DoubleSolenoid *shooterSolenoid3;
 	Joystick *joystick;
 
 public:
@@ -13,5 +13,4 @@ public:
 	void FireShooter();
 	void RetractCylinder();
 	void FireMiddleCylinder();
-
 };
