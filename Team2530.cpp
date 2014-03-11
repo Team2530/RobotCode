@@ -13,6 +13,7 @@
  *      Bridger Herman
  *      Alvin Faisal
  *      Peter Torzweski
+ *      Isaac Gullickson
  *      
  * 
  * 
