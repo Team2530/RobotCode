@@ -94,7 +94,7 @@ public:
 	 */
 	void OperatorControl() {
 		//Engage the compressor
-		m_compressor->Start();
+		//m_compressor->Start();
 
 		//Reset the gyro
 		myGyro->Reset();
@@ -182,7 +182,7 @@ public:
 			camera_servo->turnCamera();
 
 			//Arm actions
-			robotArm->OperateArm();
+			//robotArm->OperateArm();
 		}
 	}
 };

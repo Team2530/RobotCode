@@ -12,10 +12,11 @@ void Arm::LowerArm() {
 	raiseArm->SetSpeed(-1);
 }
 void Arm::OperateArm() {
-	if (xboxController->GetRawButton(1) >= 0.0) {
+	if (xboxController->GetRawButton(1)) {
 		LowerArm();
 	}
 	else {
 		RaiseArm();
 	}
 }
+

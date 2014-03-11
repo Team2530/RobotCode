@@ -4,7 +4,8 @@
 //http://www.chiefdelphi.com/forums/showthread.php?t=89510
 CameraServo::CameraServo (uint32_t channel){
 	camera_servo = new Servo (7);
-	joystick = new Joystick (1); 
+	joystick = new Joystick (1);
+	xbox_controller = new Joystick (2);
 	desiredAngle[0] = 0.0;
 	desiredAngle[1] = 25.0;
 	desiredAngle[2] = 75.0;
@@ -18,8 +19,8 @@ void CameraServo::turnCamera() {
 	bool up = upPushed;
 	bool down = downPushed;
 
-	upPushed = joystick->GetRawButton(5);
-	downPushed = joystick->GetRawButton(3);
+	upPushed = joystick->GetRawButton(5) && xbox_controller->GetRawButton(4);
+	downPushed = joystick->GetRawButton(3) && xbox_controller->GetRawButton(3);
 
 	//Angles camera up
 

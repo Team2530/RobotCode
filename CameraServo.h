@@ -2,6 +2,7 @@
 class CameraServo {
 	Servo * camera_servo;
 	Joystick * joystick;
+	Joystick * xbox_controller;
 	static const int angles = 3;
 	float desiredAngle[angles];
 	bool upPushed;
