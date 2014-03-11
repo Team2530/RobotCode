@@ -1,6 +1,7 @@
 #include "WPILib.h"
 #include "CameraServo.h"
 
+//http://www.chiefdelphi.com/forums/showthread.php?t=89510
 CameraServo::CameraServo (uint32_t channel){
 	camera_servo = new Servo (7);
 	joystick = new Joystick (1); 

@@ -61,21 +61,21 @@ public:
 	 */
 	void Autonomous()
 	{
-		float x;
-		float range;
+		float x;  //Loop iterator scaled down
+		float angle;  //Variable for gyro output
+		myGyro->Reset();  //Reset gyro
+		
 		while (IsAutonomous()) {
 			for (int i = 0; i <= 10; i++) {  //Spool up motors
-				range = sonic->GetDistanceIN();
 				x = i;
 				x *= .1;
-				myDrive->Drive_RobotOriented(x,0,0);
+				myDrive->Drive_FieldOriented(x,0,0,angle);
 				Wait(.1);
 			}
 			for (int i = 10; i >= 0; i--) {  //Spool down motors
-				range = sonic->GetDistanceIN();
 				x = i;
 				x *= .1;
-				myDrive->Drive_RobotOriented(x,0,0);
+				myDrive->Drive_FieldOriented(x,0,0,angle);
 				Wait(.1);
 			}
 		}

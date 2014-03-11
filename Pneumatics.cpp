@@ -17,7 +17,7 @@ void Pneumatics::RetractCylinder(){
 void Pneumatics::Shooter(){
 
 
-	if (joystick->GetRawAxis(3) >= 0.1){
+	if (joystick->GetRawAxis(3) <= -0.1){
 		FireShooter();
 	}
 
