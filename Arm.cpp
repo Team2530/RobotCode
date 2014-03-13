@@ -11,32 +11,24 @@ Arm::Arm() {
 }
 void Arm::RaiseArm() {
 
-	if (top_limit_switch->Get())
-	{
+	/*if (top_limit_switch->Get())
 		raiseArm->SetSpeed(0);
-	}
-	else
-	{
+	else*/
 		raiseArm->SetSpeed(1);
-	}
 }
 void Arm::LowerArm() {
 	
-	if (bottom_limit_switch->Get())
-	{
+	/*if (bottom_limit_switch->Get())
 		raiseArm->SetSpeed(0);
-	}
-	else
-	{
+	else*/
 		raiseArm->SetSpeed(-1);
-	}
 }
 void Arm::OperateArm() {
-	if (xboxController->GetRawAxis(3) <= -0.5) {
-		LowerArm();
-	}
-	if (xboxController->GetRawAxis(3) >= 0.5 {
-		RaiseArm();
-	}
+	if ((xboxController->GetRawAxis(5) >= 0.5) || (joystick->GetRawAxis(6) >= 0.5))
+		raiseArm->SetSpeed(1);
+	else if ((xboxController->GetRawAxis(5) <= -0.5) || (joystick->GetRawAxis(6) <= -0.5))
+		raiseArm->SetSpeed(-1);
+	else
+		raiseArm->SetSpeed(0);
 }
 

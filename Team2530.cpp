@@ -24,7 +24,10 @@ class Team2530 : public SimpleRobot {
 	UltraSonic *sonic;  //Sonic sensor
 	Gyro *myGyro;  //Gyro
 	Pneumatics *pneumatics;  //Shooter/claw pneumatics object
+	
+	Relay *m_relay;
 	Compressor *m_compressor;  //Compressor Relay
+	
 	CameraServo * camera_servo;  //Servo to move the camera
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
@@ -47,6 +50,7 @@ public:
 
 		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
 
+		m_relay = new Relay (2, Relay::kBothDirections);
 		m_compressor = new Compressor (1, 1);	//creates the compressor
 
 		camera_servo = new CameraServo(10);
@@ -95,7 +99,8 @@ public:
 	 */
 	void OperatorControl() {
 		//Engage the compressor
-		//m_compressor->Start();
+		m_compressor->Start();
+		m_relay->Set(Relay::kOn);
 
 		//Reset the gyro
 		myGyro->Reset();
@@ -183,7 +188,7 @@ public:
 			camera_servo->turnCamera();
 
 			//Arm actions
-			//robotArm->OperateArm();
+			robotArm->OperateArm();
 		}
 	}
 };

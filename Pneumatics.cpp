@@ -21,15 +21,15 @@ void Pneumatics::Shooter(){
 		FireShooter();
 	}
 
-	else if (joystick->GetRawButton(6)){
-		FireMiddleCylinder();
-	}
-	else{
+	//if (joystick->GetRawAxis(3) >= 0.5){
+		//FireMiddleCylinder();
+	//}
+	else {
 		RetractCylinder();
 	}
 }
 void Pneumatics::FireMiddleCylinder(){
-		shooterSolenoid1->Set(DoubleSolenoid::kForward);
+		shooterSolenoid1->Set(DoubleSolenoid::kReverse);
 	}
 
 Pneumatics::Pneumatics (){
