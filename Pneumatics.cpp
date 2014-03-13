@@ -21,9 +21,9 @@ void Pneumatics::Shooter(){
 		FireShooter();
 	}
 
-	//if (joystick->GetRawAxis(3) >= 0.5){
-		//FireMiddleCylinder();
-	//}
+	if (joystick->GetRawButton(6)){
+		FireMiddleCylinder();
+	}
 	else {
 		RetractCylinder();
 	}
