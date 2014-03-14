@@ -17,11 +17,10 @@ void Pneumatics::RetractCylinder(){
 void Pneumatics::Shooter(){
 
 
-	if (joystick->GetRawButton(5)){
+	if (joystick->GetRawAxis(3) <= -0.1) {
 		FireShooter();
 	}
-
-	if (joystick->GetRawButton(6)){
+	else if (joystick->GetRawAxis(3) >= 0.1) {
 		FireMiddleCylinder();
 	}
 	else {
@@ -33,8 +32,8 @@ void Pneumatics::FireMiddleCylinder(){
 	}
 
 Pneumatics::Pneumatics (){
-	shooterSolenoid1 = new DoubleSolenoid (1, 2);
-	shooterSolenoid2 = new DoubleSolenoid (3, 4);
-	shooterSolenoid3 = new DoubleSolenoid (5, 6);
+	shooterSolenoid1 = new DoubleSolenoid (1, 6);
+	shooterSolenoid2 = new DoubleSolenoid (2, 5);
+	shooterSolenoid3 = new DoubleSolenoid (3, 4);
 	joystick = new Joystick(2);
 }
