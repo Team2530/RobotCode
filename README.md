@@ -7,6 +7,13 @@ THINGS TO DO:
 
 -Add your name to the "Contributors" comment in Team2530.cpp!
 
--Test Arm and Pneumatics shooter code.
-
 -Get Kinect to work for autonomous.
+
+-Automatic mode for arm
+
+
+THINGS DONE:
+
+-Shooter code works fully (soft and full shoot)
+
+-Arm code works fully (excluding automatic mode)
