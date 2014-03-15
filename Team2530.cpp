@@ -77,8 +77,7 @@ public:
 		float x;  //Loop iterator scaled down
 		float angle;  //Variable for gyro output
 		myGyro->Reset();  //Reset gyro
-
-		while (IsAutonomous()) {
+		if (ds->GetDigitalIn(1)) {
 			if (rightArm->GetY() > 0) {
 				robotArm->LowerArm();
 				for (int i = 0; i <= 10; i++) {  //Spool up motors
@@ -203,7 +202,7 @@ public:
 
 			//Arm actions
 			robotArm->OperateArm();
-			
+
 			//Kinect action
 			//rightArm->GetY();
 
