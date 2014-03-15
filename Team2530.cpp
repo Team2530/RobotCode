@@ -62,7 +62,7 @@ public:
 
 		robotArm = new Arm();  //Arm for lifting the ball
 		KinectStick leftArm(3); 
-		KinectStick rightArm(4); 
+		KinectStick rightArm(2); 
 
 	}
 
@@ -79,7 +79,7 @@ public:
 		myGyro->Reset();  //Reset gyro
 
 		while (IsAutonomous()) {
-			if (rightArm->GetRawAxis(3)) {
+			if (rightArm->GetY() > 0) {
 				robotArm->LowerArm();
 				for (int i = 0; i <= 10; i++) {  //Spool up motors
 					x = i;
@@ -203,6 +203,9 @@ public:
 
 			//Arm actions
 			robotArm->OperateArm();
+			
+			//Kinect action
+			//rightArm->GetY();
 
 
 		}
