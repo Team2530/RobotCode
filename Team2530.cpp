@@ -61,8 +61,8 @@ public:
 		pneumatics = new Pneumatics();
 
 		robotArm = new Arm();  //Arm for lifting the ball
-		KinectStick leftArm(3); 
-		KinectStick rightArm(2); 
+		leftArm = new KinectStick (1); 
+		rightArm = new KinectStick (2); 
 
 	}
 
@@ -77,8 +77,8 @@ public:
 		float x;  //Loop iterator scaled down
 		float angle;  //Variable for gyro output
 		myGyro->Reset();  //Reset gyro
-		if (ds->GetDigitalIn(1)) {
-			if (rightArm->GetY() > 0) {
+		while (IsAutonomous()) {
+			if (rightArm->GetTrigger()) { //Kinect stuff - If it detects a skeleton, does this
 				robotArm->LowerArm();
 				for (int i = 0; i <= 10; i++) {  //Spool up motors
 					x = i;
@@ -93,7 +93,7 @@ public:
 					Wait(.1);
 				}
 			}
-			else {
+			else { //Kinect Stuff - If it doesn't detect anything, it waits
 				Wait(.05);
 			}
 
@@ -203,8 +203,8 @@ public:
 			//Arm actions
 			robotArm->OperateArm();
 
-			//Kinect action
-			//rightArm->GetY();
+			
+			
 
 
 		}
