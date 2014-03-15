@@ -79,12 +79,14 @@ public:
 				Wait(.1);
 			}
 			robotArm->LowerArm();
+			
 			for (int i = 10; i >= 0; i--) {  //Spool down motors
 				x = i;
 				x *= .1;
 				myDrive->Drive_FieldOriented(x,0,0,angle);
 				Wait(.1);
 			}
+			robotArm->StopArm();
 		}
 	}
 

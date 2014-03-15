@@ -10,4 +10,5 @@ public:
 	void LowerArm();
 	void OperateArm();
 	void AutoArm();
+	void StopArm();
 };
