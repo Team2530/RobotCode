@@ -31,6 +31,9 @@ class Team2530 : public SimpleRobot {
 	CameraServo * camera_servo;  //Servo to move the camera
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
+	
+	Command *autonomousCommand;
+	SendableChooser *chooser;
 
 
 	enum							// Driver Station jumpers to control program operation
@@ -58,8 +61,25 @@ public:
 
 		robotArm = new Arm();  //Arm for lifting the ball
 
+		chooser = new SendableChooser();
+		chooser->AddDefault("Default Autonomous", new defaultautonomous());
+	/*chooser->AddObject("Autonomous Two", new AutonomousTwo());*/
+		 /*add more autonmous selections with this Addobject syntax.
+		  * the last parameter is the command for the autonomous program
+		  * it calls the cpp file with that name
+		  * -> we must put each autonomous program in a separate file.
+		  * */
+		SmartDashboard::PutData("Autonomous modes", chooser);
 	}
 
+	virtual void AutonmousInit(){
+		autonomousCommand = (Command *) chooser->GetSelected();
+		autonomousCommand->Start();
+	}
+	virtual void AutonmousPeriodic() {
+		Scheduler::GetInstance()->Run();
+	}
+	
 	/*
 	 * Spool motors up and down, then fire the shooter. Hopefully don't run into driver stations at other end of field.
 	 * ADD KINECT STUFF HERE
