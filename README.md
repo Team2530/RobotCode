@@ -9,11 +9,11 @@ THINGS TO DO:
 
 -Get Kinect to work for autonomous.
 
--Automatic mode for arm
-
 
 THINGS DONE:
 
 -Shooter code works fully (soft and full shoot)
 
 -Arm code works fully (excluding automatic mode)
+
+-Automatic mode for arm
