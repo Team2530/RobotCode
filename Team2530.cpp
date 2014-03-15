@@ -6,6 +6,7 @@
 #include "CameraServo.h"
 #include "Arm.h"
 #include "KinectStick.h"
+#include "Autonomous.h"
 
 /*
  * This is the final code for Team 2530's robot, Humperdinck.
@@ -32,6 +33,8 @@ class Team2530 : public SimpleRobot {
 	CameraServo * camera_servo;  //Servo to move the camera
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
+	Autonomous *autonomous;
+	
 	Kinect *kinect;  //Kinect object
 	KinectStick *leftArm; 
 	KinectStick *rightArm; 
@@ -61,6 +64,8 @@ public:
 		pneumatics = new Pneumatics();
 
 		robotArm = new Arm();  //Arm for lifting the ball
+		autonomous = new Autonomous();
+		
 		leftArm = new KinectStick (1); 
 		rightArm = new KinectStick (2); 
 
@@ -71,32 +76,16 @@ public:
 	 * ADD KINECT STUFF HERE
 	 * as well as a 5 second wait for if kinect stuff is not true
 	 */
-
-	void Autonomous()
-	{
-		float x;  //Loop iterator scaled down
-		float angle;  //Variable for gyro output
-		myGyro->Reset();  //Reset gyro
-		while (IsAutonomous()) {
-			if (rightArm->GetTrigger()) { //Kinect stuff - If it detects a skeleton, does this
-				robotArm->LowerArm();
-				for (int i = 0; i <= 10; i++) {  //Spool up motors
-					x = i;
-					x *= .1;
-					myDrive->Drive_FieldOriented(x,0,0,angle);
-					Wait(.1);
-				}
-				for (int i = 10; i >= 0; i--) {  //Spool down motors
-					x = i;
-					x *= .1;
-					myDrive->Drive_FieldOriented(x,0,0,angle);
-					Wait(.1);
-				}
-			}
-			else { //Kinect Stuff - If it doesn't detect anything, it waits
-				Wait(.05);
-			}
-
+	
+	void Autonomous() {
+		if (ds->GetDigitalIn(1)) {
+			autonomous->TwoBall();
+		}
+		else if (ds->GetDigitalIn(2)) {
+			autonomous->NoBall();
+		}
+		else {
+			autonomous->OneBall();
 		}
 	}
 
