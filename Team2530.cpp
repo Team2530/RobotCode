@@ -5,6 +5,7 @@
 #include <math.h>
 #include "CameraServo.h"
 #include "Arm.h"
+#include "KinectStick.h"
 
 /*
  * This is the final code for Team 2530's robot, Humperdinck.
@@ -24,16 +25,16 @@ class Team2530 : public SimpleRobot {
 	UltraSonic *sonic;  //Sonic sensor
 	Gyro *myGyro;  //Gyro
 	Pneumatics *pneumatics;  //Shooter/claw pneumatics object
-	
+
 	Relay *m_relay;
 	Compressor *m_compressor;  //Compressor Relay
-	
+
 	CameraServo * camera_servo;  //Servo to move the camera
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
-	
-	Command *autonomousCommand;
-	SendableChooser *chooser;
+	Kinect *kinect;  //Kinect object
+	KinectStick *leftArm; 
+	KinectStick *rightArm; 
 
 
 	enum							// Driver Station jumpers to control program operation
@@ -60,53 +61,43 @@ public:
 		pneumatics = new Pneumatics();
 
 		robotArm = new Arm();  //Arm for lifting the ball
+		KinectStick leftArm(3); 
+		KinectStick rightArm(4); 
 
-		chooser = new SendableChooser();
-		chooser->AddDefault("Default Autonomous", new defaultautonomous());
-	/*chooser->AddObject("Autonomous Two", new AutonomousTwo());*/
-		 /*add more autonmous selections with this Addobject syntax.
-		  * the last parameter is the command for the autonomous program
-		  * it calls the cpp file with that name
-		  * -> we must put each autonomous program in a separate file.
-		  * */
-		SmartDashboard::PutData("Autonomous modes", chooser);
 	}
 
-	virtual void AutonmousInit(){
-		autonomousCommand = (Command *) chooser->GetSelected();
-		autonomousCommand->Start();
-	}
-	virtual void AutonmousPeriodic() {
-		Scheduler::GetInstance()->Run();
-	}
-	
 	/*
 	 * Spool motors up and down, then fire the shooter. Hopefully don't run into driver stations at other end of field.
 	 * ADD KINECT STUFF HERE
-	 * as well as a 5 second wait for if kinct stuff is not true
+	 * as well as a 5 second wait for if kinect stuff is not true
 	 */
+
 	void Autonomous()
 	{
 		float x;  //Loop iterator scaled down
 		float angle;  //Variable for gyro output
 		myGyro->Reset();  //Reset gyro
-		
+
 		while (IsAutonomous()) {
-			for (int i = 0; i <= 10; i++) {  //Spool up motors
-				x = i;
-				x *= .1;
-				myDrive->Drive_FieldOriented(x,0,0,angle);
-				Wait(.1);
+			if (rightArm->GetRawAxis(3)) {
+				robotArm->LowerArm();
+				for (int i = 0; i <= 10; i++) {  //Spool up motors
+					x = i;
+					x *= .1;
+					myDrive->Drive_FieldOriented(x,0,0,angle);
+					Wait(.1);
+				}
+				for (int i = 10; i >= 0; i--) {  //Spool down motors
+					x = i;
+					x *= .1;
+					myDrive->Drive_FieldOriented(x,0,0,angle);
+					Wait(.1);
+				}
 			}
-			robotArm->LowerArm();
-			
-			for (int i = 10; i >= 0; i--) {  //Spool down motors
-				x = i;
-				x *= .1;
-				myDrive->Drive_FieldOriented(x,0,0,angle);
-				Wait(.1);
+			else {
+				Wait(.05);
 			}
-			robotArm->StopArm();
+
 		}
 	}
 
@@ -212,6 +203,8 @@ public:
 
 			//Arm actions
 			robotArm->OperateArm();
+
+
 		}
 	}
 };
