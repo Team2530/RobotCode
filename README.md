@@ -14,6 +14,6 @@ THINGS DONE:
 
 -Shooter code works fully (soft and full shoot)
 
--Arm code works fully (excluding automatic mode)
+-Arm code works fully
 
 -Automatic mode for arm
