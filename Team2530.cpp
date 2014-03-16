@@ -27,13 +27,12 @@ class Team2530 : public SimpleRobot {
 	Gyro *myGyro;  //Gyro
 	Pneumatics *pneumatics;  //Shooter/claw pneumatics object
 
-	Relay *m_relay;
 	Compressor *m_compressor;  //Compressor Relay
 
 	CameraServo * camera_servo;  //Servo to move the camera
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
-	Autonomous *autonomous;
+	AutonomousMode *autonomous;
 	
 	Kinect *kinect;  //Kinect object
 	KinectStick *leftArm; 
@@ -57,14 +56,13 @@ public:
 
 		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
 
-		m_relay = new Relay (2, Relay::kBothDirections);
 		m_compressor = new Compressor (1, 1);	//creates the compressor
 
 		camera_servo = new CameraServo(10);
 		pneumatics = new Pneumatics();
 
 		robotArm = new Arm();  //Arm for lifting the ball
-		autonomous = new Autonomous();
+		autonomous = new AutonomousMode();
 		
 		leftArm = new KinectStick (1); 
 		rightArm = new KinectStick (2); 
@@ -102,7 +100,6 @@ public:
 	void OperatorControl() {
 		//Engage the compressor
 		m_compressor->Start();
-		m_relay->Set(Relay::kOn);
 
 		//Reset the gyro
 		myGyro->Reset();
