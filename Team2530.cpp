@@ -76,15 +76,13 @@ public:
 	 */
 	
 	void Autonomous() {
-		if (ds->GetDigitalIn(1)) {
+		autonomous->Drive();	//Drives forward automatically
+		if (ds->GetDigitalIn(1)) 
 			autonomous->OneBall();
-		}
-		else if (ds->GetDigitalIn(2)) {
+		
+		else if (ds->GetDigitalIn(2)) 
 			autonomous->TwoBall();
-		}
-		else if (ds->GetDigitalIn(3)){
-			autonomous->NoBall();
-		}
+		
 		else
 			autonomous->OneBall();
 	}

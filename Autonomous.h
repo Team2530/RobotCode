@@ -19,6 +19,5 @@ public:
 	AutonomousMode();
 	void AutonomousMode::OneBall();
 	void AutonomousMode::TwoBall();
-	void AutonomousMode::NoBall();
 	void AutonomousMode::Drive();
 };

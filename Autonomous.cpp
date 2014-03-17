@@ -1,10 +1,6 @@
 #include "WPILib.h"
 #include "Autonomous.h"
 
-//Arm will probably be down
-void Autonomous::NoBall() {
-	Drive();
-}
 
 void Autonomous::OneBall() {
 	//Kinect code -- could be any of these 3 scenarios
@@ -18,15 +14,24 @@ void Autonomous::OneBall() {
 	if (rightArm->GetTwist() == 0){
 		robotArm->RaiseArm();}
 #endif
-	if (rightArm->GetTrigger() || rightArm->GetTop()) { //Kinect stuff
-		Drive();
+	if (ds->GetDigitalIn(3) && (rightArm->GetTrigger() || rightArm->GetTop())) { //Kinect stuff
+		pneumatics->FireShooter();
+		Wait(1);
+		pneumatics->RetractCylinder();
+	}
+	else if (ds->GetDigitalIn(3) && !(rightArm->GetTrigger() || rightArm->GetTop())) {
+		Wait(5.0);
+		pneumatics->FireShooter();
+		Wait(1);
+		pneumatics->RetractCylinder();
+	}
+	else if (! ds->GetDigitalIn(3) && (rightArm->GetTrigger() || rightArm->GetTop())){
 		pneumatics->FireShooter();
 		Wait(1);
 		pneumatics->RetractCylinder();
 	}
 	else {
 		Wait(5.0);
-		Drive();
 		pneumatics->FireShooter();
 		Wait(1);
 		pneumatics->RetractCylinder();
