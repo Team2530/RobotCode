@@ -77,14 +77,16 @@ public:
 	
 	void Autonomous() {
 		if (ds->GetDigitalIn(1)) {
-			autonomous->TwoBall();
-		}
-		else if (ds->GetDigitalIn(2)) {
-			autonomous->NoBall();
-		}
-		else {
 			autonomous->OneBall();
 		}
+		else if (ds->GetDigitalIn(2)) {
+			autonomous->TwoBall();
+		}
+		else if (ds->GetDigitalIn(3)){
+			autonomous->NoBall();
+		}
+		else
+			autonomous->OneBall();
 	}
 
 
