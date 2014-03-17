@@ -77,14 +77,15 @@ public:
 	
 	void Autonomous() {
 		autonomous->Drive();	//Drives forward automatically
-		if (ds->GetDigitalIn(1)) 
-			autonomous->OneBall();
-		
+		bool isRight = ds->GetDigitalIn(3);
+		if (ds->GetDigitalIn(1)) {
+			autonomous->OneBall(isRight);
+		}
 		else if (ds->GetDigitalIn(2)) 
 			autonomous->TwoBall();
 		
 		else
-			autonomous->OneBall();
+			autonomous->OneBall(isRight);
 	}
 
 

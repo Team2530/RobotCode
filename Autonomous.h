@@ -2,6 +2,7 @@
 #include "MecanumDrive.h"
 #include "Pneumatics.h"
 #include "KinectStick.h"
+#include "Arm.h"
 
 
 class AutonomousMode {
@@ -17,7 +18,7 @@ class AutonomousMode {
 		
 public:
 	AutonomousMode();
-	void AutonomousMode::OneBall();
+	void AutonomousMode::OneBall(bool isRight);
 	void AutonomousMode::TwoBall();
 	void AutonomousMode::Drive();
 };

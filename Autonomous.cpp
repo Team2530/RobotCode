@@ -2,7 +2,7 @@
 #include "Autonomous.h"
 
 
-void Autonomous::OneBall() {
+void AutonomousMode::OneBall(bool isRight) {
 	//Kinect code -- could be any of these 3 scenarios
 #if 0
 	if (rightArm->GetTrigger() || rightArm->GetTop()) {
@@ -14,18 +14,18 @@ void Autonomous::OneBall() {
 	if (rightArm->GetTwist() == 0){
 		robotArm->RaiseArm();}
 #endif
-	if (ds->GetDigitalIn(3) && (rightArm->GetTrigger() || rightArm->GetTop())) { //Kinect stuff
+	if (isRight && rightArm->GetTrigger()) { //Kinect stuff
 		pneumatics->FireShooter();
 		Wait(1);
 		pneumatics->RetractCylinder();
 	}
-	else if (ds->GetDigitalIn(3) && !(rightArm->GetTrigger() || rightArm->GetTop())) {
+	else if (isRight && !rightArm->GetTrigger()) {
 		Wait(5.0);
 		pneumatics->FireShooter();
 		Wait(1);
 		pneumatics->RetractCylinder();
 	}
-	else if (! ds->GetDigitalIn(3) && (rightArm->GetTrigger() || rightArm->GetTop())){
+	else if (! isRight && rightArm->GetTrigger()){
 		pneumatics->FireShooter();
 		Wait(1);
 		pneumatics->RetractCylinder();
@@ -38,7 +38,7 @@ void Autonomous::OneBall() {
 	}
 }
 
-void Autonomous::TwoBall() {
+void AutonomousMode::TwoBall() {
 	if (true) { //Kinect stuff
 		robotArm->RaiseArm();
 		Wait(.2);
@@ -54,7 +54,7 @@ void Autonomous::TwoBall() {
 	}
 }
 
-void Autonomous::Drive() {
+void AutonomousMode::Drive() {
 	myGyro->Reset();  //Reset gyro
 	for (int i = 0; i <= 10; i++) {  //Spool up motors
 		myGyro->GetAngle();
@@ -72,7 +72,7 @@ void Autonomous::Drive() {
 	}
 }
 
-Autonomous::Autonomous() {
+AutonomousMode::AutonomousMode() {
 	myDrive = new MecanumDrive();
 	myGyro = new Gyro(1);
 	pneumatics = new Pneumatics();

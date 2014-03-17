@@ -1,4 +1,6 @@
 #include "WPILib.h"
+#ifndef _ARM_H
+#define _ARM_H
 class Arm {
 	Jaguar *raiseArm;  //Motors to control motion of the arm
 	Joystick *xboxController;
@@ -12,3 +14,4 @@ public:
 	void AutoArm();
 	void StopArm();
 };
+#endif
