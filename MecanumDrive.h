@@ -1,5 +1,6 @@
 #include "WPILib.h"
-
+#ifndef _MECANUMDRIVE_H
+#define _MECANUMDRIVE_H
 class MecanumDrive {
 
 	Joystick *joystick;
@@ -15,3 +16,4 @@ public:
 	void Drive_RobotOriented(float mag, float dir, float twist);
 	void GetJoystickValues(float &magnitude, float &direction, float &twist, float &throttle);
 };
+#endif

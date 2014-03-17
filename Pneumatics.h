@@ -1,4 +1,6 @@
 #include "WPILib.h"
+#ifndef _PNEUMATICS_H
+#define _PNEUMATICS_H
 class Pneumatics {
 
 
@@ -14,3 +16,4 @@ public:
 	void RetractCylinder();
 	void FireMiddleCylinder();
 };
+#endif
