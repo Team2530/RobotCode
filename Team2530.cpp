@@ -33,11 +33,6 @@ class Team2530 : public SimpleRobot {
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
 	AutonomousMode *autonomous;
-	
-	Kinect *kinect;  //Kinect object
-	KinectStick *leftArm; 
-	KinectStick *rightArm; 
-
 
 	enum							// Driver Station jumpers to control program operation
 	{ ARCADE_MODE = 1,				// Tank/Arcade jumper is on DS Input 1 (Jumper present is arcade)
@@ -62,10 +57,7 @@ public:
 		pneumatics = new Pneumatics();
 
 		robotArm = new Arm();  //Arm for lifting the ball
-		autonomous = new AutonomousMode();
-		
-		leftArm = new KinectStick (1); 
-		rightArm = new KinectStick (2); 
+		autonomous = new AutonomousMode(myDrive, myGyro, pneumatics, robotArm);
 
 	}
 

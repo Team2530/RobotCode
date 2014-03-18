@@ -72,11 +72,11 @@ void AutonomousMode::Drive() {
 	}
 }
 
-AutonomousMode::AutonomousMode() {
-	myDrive = new MecanumDrive();
-	myGyro = new Gyro(1);
-	pneumatics = new Pneumatics();
-	robotArm = new Arm();
+AutonomousMode::AutonomousMode(MecanumDrive *drive, Gyro *gyro, Pneumatics *pneumatic, Arm *myArm) {
+	myDrive = drive;
+	myGyro = gyro;
+	pneumatics = pneumatic;
+	robotArm = myArm;
 	leftArm = new KinectStick(1);
 	rightArm = new KinectStick(2); 
 }

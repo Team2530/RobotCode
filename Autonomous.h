@@ -12,12 +12,11 @@ class AutonomousMode {
 	Arm *robotArm;
 	float x;  //Loop iterator scaled down
 	float angle;  //Variable for gyro output
-	Kinect *kinect;  //Kinect object
 	KinectStick *leftArm; 
 	KinectStick *rightArm;
 		
 public:
-	AutonomousMode();
+	AutonomousMode(MecanumDrive *drive, Gyro *gyro, Pneumatics *pneumatic, Arm *myArm);
 	void AutonomousMode::OneBall(bool isRight);
 	void AutonomousMode::TwoBall();
 	void AutonomousMode::Drive();
