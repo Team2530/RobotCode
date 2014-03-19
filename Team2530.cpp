@@ -27,7 +27,7 @@ class Team2530 : public SimpleRobot {
 	Gyro *myGyro;  //Gyro
 	Pneumatics *pneumatics;  //Shooter/claw pneumatics object
 
-	Compressor *m_compressor;  //Compressor Relay
+	Compressor *m_compressor;  //Compressor Relay	
 
 	CameraServo * camera_servo;  //Servo to move the camera
 	MecanumDrive *myDrive;  //MecanumDrive object
