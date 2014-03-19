@@ -11,10 +11,10 @@
 /*
  * This is the final code for Team 2530's robot, Humperdinck.
  * Contributors: ADD YOUR NAME HERE
- * 	MENTOR: Tim Torzweski (Dad)
+ * 	MENTOR: Tim Torzewski (Dad)
  *      Bridger Herman
  *      Alvin Faisal
- *      Peter Torzweski
+ *      Peter Torzewski
  *      Isaac Gullickson
  *      
  * 
@@ -51,10 +51,10 @@ public:
 
 		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
 
-		m_compressor = new Compressor (1, 1);	//creates the compressor
+		m_compressor = new Compressor (1, 1);	//creates the compressor  (Spike on Relay 1, Pressure Switch on Digital I/O 1)
 
-		camera_servo = new CameraServo(10);
-		pneumatics = new Pneumatics();
+		camera_servo = new CameraServo(10);  //Servo to turn camera
+		pneumatics = new Pneumatics();  //Object for shooting arm pneumatics
 
 		robotArm = new Arm();  //Arm for lifting the ball
 		autonomous = new AutonomousMode(myDrive, myGyro, pneumatics, robotArm);
@@ -68,7 +68,6 @@ public:
 	 */
 	
 	void Autonomous() {
-		autonomous->Drive();	//Drives forward automatically
 		bool isRight = ds->GetDigitalIn(3);
 		if (ds->GetDigitalIn(1)) {
 			autonomous->OneBall(isRight);
@@ -91,7 +90,7 @@ public:
 	 * Arm operation
 	 */
 	void OperatorControl() {
-		//Engage the compressor
+		//Engage the compressor -- needs relay on 1 and pressure switch on I/O port 1
 		m_compressor->Start();
 
 		//Reset the gyro
@@ -105,7 +104,8 @@ public:
 
 		//Angle of Gyro
 		float angle;
-		int anglei;  //User viewing for gyro readout
+		//User viewing for gyro readout
+		int anglei;
 		//If robot is in field-oriented or robot-oriented
 		bool isFieldOriented = true;  //Start out in field-oriented mode
 
@@ -154,7 +154,9 @@ public:
 			//DRIVE Stuff~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			//Get joystick values
 			myDrive->GetJoystickValues(magnitude, direction, twist, throttle);
-			//Field Oriented Drive
+			
+			//Multiply by throttle for adjustable speed control
+			//Field Oriented Drive -- use angle from gyro
 			if (isFieldOriented) {
 				myDrive->Drive_FieldOriented(throttle * magnitude, direction, throttle * twist, angle);
 			}
@@ -163,7 +165,7 @@ public:
 				myDrive->Drive_RobotOriented(throttle * magnitude, direction, throttle * twist);
 			}
 
-			//Make Gyro an integer for user viewing
+			//Make Gyro/Distance Sensor an integer for user viewing
 			anglei = static_cast<int>(angle);
 			avgi = static_cast<int>(avg);
 
@@ -173,13 +175,13 @@ public:
 			SmartDashboard::PutNumber("Gyro:",anglei);
 			SmartDashboard::PutBoolean("Field Oriented:", isFieldOriented);
 
-			//Shooter actions
+			//Shooter actions (includes full shoot and "pass" shoot)
 			pneumatics->Shooter();
 
-			//Turns the camera			
+			//Turns the camera
 			camera_servo->turnCamera();
 
-			//Arm actions
+			//Arm actions (includes raise arm, lower arm, and automatic up/down)
 			robotArm->OperateArm();
 
 			

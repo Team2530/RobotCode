@@ -3,7 +3,7 @@
 #define _MECANUMDRIVE_H
 class MecanumDrive {
 
-	Joystick *joystick;
+	Joystick *joystick;  //Driver joystick
 	RobotDrive *myRobot;
 	Victor *vic4;
 	Victor *vic6;

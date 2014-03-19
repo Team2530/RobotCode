@@ -4,10 +4,10 @@
 class Pneumatics {
 
 
-	DoubleSolenoid *shooterSolenoid1;
+	DoubleSolenoid *shooterSolenoid1;  //middle cylinder
 	DoubleSolenoid *shooterSolenoid2;
 	DoubleSolenoid *shooterSolenoid3;
-	Joystick *joystick;
+	Joystick *joystick;  //xbox controller
 
 public:
 	void Shooter();

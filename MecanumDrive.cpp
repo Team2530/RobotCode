@@ -11,7 +11,7 @@ MecanumDrive::MecanumDrive() {
 	vic5 = new Victor(5);
 
 	//Define joystick
-	joystick = new Joystick(1);
+	joystick = new Joystick(1);  //Driver joystick
 
 	myRobot = new RobotDrive(vic5,vic3,vic6,vic4);  //FrontLeft, RearLeft, FrontRight, RearRight
 	myRobot->SetExpiration(0.1);  //Update the motors at least every 100ms.

@@ -3,7 +3,7 @@
 
 //http://www.chiefdelphi.com/forums/showthread.php?t=89510
 CameraServo::CameraServo (uint32_t channel){
-	camera_servo = new Servo (7);
+	camera_servo = new Servo (7);  //PWM port 7 -- NEEDS JUMPER! -- does not work on PWM 1/2 (no idea why)
 	joystick = new Joystick (1);
 	xbox_controller = new Joystick (2);
 	desiredAngle[0] = 0.0;

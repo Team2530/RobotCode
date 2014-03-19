@@ -14,26 +14,30 @@ void AutonomousMode::OneBall(bool isRight) {
 	if (rightArm->GetTwist() == 0){
 		robotArm->RaiseArm();}
 #endif
-	if (isRight && rightArm->GetTrigger()) { //Kinect stuff
+	if (isRight && rightArm->GetTrigger()) {  //Kinect stuff
+		Drive();
 		pneumatics->FireShooter();
-		Wait(1);
+		Wait(.1);
 		pneumatics->RetractCylinder();
 	}
 	else if (isRight && !rightArm->GetTrigger()) {
+		Drive();
 		Wait(5.0);
 		pneumatics->FireShooter();
 		Wait(1);
 		pneumatics->RetractCylinder();
 	}
 	else if (! isRight && rightArm->GetTrigger()){
+		Drive();
 		pneumatics->FireShooter();
-		Wait(1);
+		Wait(.1);
 		pneumatics->RetractCylinder();
 	}
 	else {
+		Drive();
 		Wait(5.0);
 		pneumatics->FireShooter();
-		Wait(1);
+		Wait(.1);
 		pneumatics->RetractCylinder();
 	}
 }
@@ -53,7 +57,7 @@ void AutonomousMode::TwoBall() {
 		Drive();
 	}
 }
-
+//Drive forward
 void AutonomousMode::Drive() {
 	myGyro->Reset();  //Reset gyro
 	for (int i = 0; i <= 10; i++) {  //Spool up motors
