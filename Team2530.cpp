@@ -1,5 +1,5 @@
 #include "WPILib.h"
-#include "EV4sonic.h"
+//#include "EV4sonic.h"
 #include "Pneumatics.h"
 #include "MecanumDrive.h"
 #include <math.h>
@@ -23,7 +23,7 @@
 class Team2530 : public SimpleRobot {
 	Joystick *joystick;  //Joystick for driver's use
 	DriverStation *ds;	// driver station object
-	UltraSonic *sonic;  //Sonic sensor
+//	UltraSonic *sonic;  //Sonic sensor
 	Gyro *myGyro;  //Gyro
 	Pneumatics *pneumatics;  //Shooter/claw pneumatics object
 
@@ -47,7 +47,7 @@ public:
 
 		joystick = new Joystick(1);  //Create driver joystick (first slot in DS)
 		myGyro = new Gyro(1);  //Create Gyro on port 1
-		sonic = new EV4Sonic(2);  //Create Sonic senor on port 2
+//		sonic = new EV4Sonic(2);  //Create Sonic senor on port 2
 
 		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
 
@@ -110,33 +110,33 @@ public:
 		bool isFieldOriented = true;  //Start out in field-oriented mode
 
 		//Variables for calculating average values of sensors
-		int dataSize = 10;
-		float distance[dataSize];
-		float avg;
-		int avgi;  //User viewing for distance sensor
-		int loopCount = 0;
+//		int dataSize = 10;
+//		float distance[dataSize];
+//		float avg;
+//		int avgi;  //User viewing for distance sensor
+//		int loopCount = 0;
 
 		//Tele-Op Mode
 		while (IsOperatorControl())
 		{
 			//ULTRASONIC things~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			//loopCount resets the data size back to 0
-			loopCount++;
-			if(loopCount >= dataSize){
-				loopCount = 0;}
-			distance[loopCount] = sonic->GetDistanceIN();
-
-			int i;
-			// Calculates average of Sensors
-			for (i = dataSize - 1; i >= 0; i--){ 
-				distance[i] = sonic->GetDistanceIN();
-			}
-			avg = 0;
-			for (int i = 0; i < dataSize; i++) {
-				avg += distance[i];
-			}
+//			//loopCount resets the data size back to 0
+//			loopCount++;
+//			if(loopCount >= dataSize){
+//				loopCount = 0;}
+//			distance[loopCount] = sonic->GetDistanceIN();
+//
+//			int i;
+//			// Calculates average of Sensors
+//			for (i = dataSize - 1; i >= 0; i--){ 
+//				distance[i] = sonic->GetDistanceIN();
+//			}
+//			avg = 0;
+//			for (int i = 0; i < dataSize; i++) {
+//				avg += distance[i];
+//			}
 			// Returns the average distance 
-			avg = avg / dataSize;
+//			avg = avg / dataSize;
 
 			//GYRO/FIELD-ORIENTED Stuff~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			angle = myGyro->GetAngle();  //Get the angle of the gyro
@@ -167,10 +167,10 @@ public:
 
 			//Make Gyro/Distance Sensor an integer for user viewing
 			anglei = static_cast<int>(angle);
-			avgi = static_cast<int>(avg);
+			//avgi = static_cast<int>(avg);
 
 			//Output all interesting values to the SmartDashboard
-			SmartDashboard::PutNumber("Range:",avgi);
+			//SmartDashboard::PutNumber("Range:",avgi);
 			SmartDashboard::PutNumber("Power Level",throttle);
 			SmartDashboard::PutNumber("Gyro:",anglei);
 			SmartDashboard::PutBoolean("Field Oriented:", isFieldOriented);
