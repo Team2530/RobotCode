@@ -20,7 +20,7 @@ void Arm::AutoArm() {
 		raiseArm->SetSpeed(1);
 		automatic = true;
 	}
-	if (xboxController->GetRawButton(4)) {
+	else if (xboxController->GetRawButton(4)) {
 		raiseArm->SetSpeed(-1);
 		automatic = true;
 	}
