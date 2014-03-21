@@ -19,8 +19,8 @@ void CameraServo::turnCamera() {
 	bool up = upPushed;
 	bool down = downPushed;
 
-	upPushed = joystick->GetRawButton(5) || xbox_controller->GetRawButton(4);
-	downPushed = joystick->GetRawButton(3) || xbox_controller->GetRawButton(3);
+	upPushed = joystick->GetRawButton(5) || xbox_controller->GetRawButton(1);
+	downPushed = joystick->GetRawButton(3) || xbox_controller->GetRawButton(2);
 
 	//Angles camera up
 

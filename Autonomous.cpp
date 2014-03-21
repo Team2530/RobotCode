@@ -22,7 +22,7 @@ void AutonomousMode::OneBall(bool isRight) {
 	}
 	else if (isRight && !rightArm->GetTrigger()) {
 		Drive();
-		Wait(5.0);
+		
 		pneumatics->FireShooter();
 		Wait(1);
 		pneumatics->RetractCylinder();
@@ -35,7 +35,7 @@ void AutonomousMode::OneBall(bool isRight) {
 	}
 	else {
 		Drive();
-		Wait(5.0);
+	
 		pneumatics->FireShooter();
 		Wait(.1);
 		pneumatics->RetractCylinder();
@@ -50,9 +50,9 @@ void AutonomousMode::TwoBall() {
 		Drive();
 	}
 	else {
-		Wait(5.0);
+		
 		robotArm->RaiseArm();
-		Wait(.2);
+		Wait(.2);	
 		robotArm->LowerArm();
 		Drive();
 	}
@@ -64,15 +64,15 @@ void AutonomousMode::Drive() {
 		myGyro->GetAngle();
 		x = i;
 		x *= .1;
-		myDrive->Drive_FieldOriented(x,0,0,angle);
-		Wait(.1);
+		myDrive->Drive_RobotOriented(x,0,0.02);
+		Wait(.25); 
 	}
 	for (int i = 10; i >= 0; i--) {  //Spool down motors
 		myGyro->GetAngle();
 		x = i;
 		x *= .1;
-		myDrive->Drive_FieldOriented(x,0,0,angle);
-		Wait(.1);
+		myDrive->Drive_RobotOriented(x,0,0.02); 
+		Wait(.02);
 	}
 }
 
