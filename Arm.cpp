@@ -4,6 +4,7 @@ Arm::Arm() {
 	raiseArm = new Jaguar(9);  //Creat jag arm motor
 	xboxController = new Joystick(2);
 	joystick = new Joystick(1);
+	automatic = false;
 }
 void Arm::RaiseArm() {
 	automatic = false;
@@ -20,7 +21,7 @@ void Arm::AutoArm() {
 		raiseArm->SetSpeed(1);
 		automatic = true;
 	}
-	if (xboxController->GetRawButton(4)) {
+	else if (xboxController->GetRawButton(4)) {
 		raiseArm->SetSpeed(-1);
 		automatic = true;
 	}
@@ -36,6 +37,8 @@ void Arm::OperateArm() {
 		LowerArm();
 	else if (!automatic)
 		raiseArm->SetSpeed(0);
+	else if (xboxController->GetRawButton(5) || xboxController->GetRawButton(6))
+		StopArm();
 }
 
 void Arm::StopArm() {

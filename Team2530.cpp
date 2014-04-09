@@ -1,9 +1,7 @@
 #include "WPILib.h"
-//#include "EV4sonic.h"
 #include "Pneumatics.h"
 #include "MecanumDrive.h"
 #include <math.h>
-#include "CameraServo.h"
 #include "Arm.h"
 #include "KinectStick.h"
 #include "Autonomous.h"
@@ -23,13 +21,11 @@
 class Team2530 : public SimpleRobot {
 	Joystick *joystick;  //Joystick for driver's use
 	DriverStation *ds;	// driver station object
-//	UltraSonic *sonic;  //Sonic sensor
 	Gyro *myGyro;  //Gyro
 	Pneumatics *pneumatics;  //Shooter/claw pneumatics object
 
 	Compressor *m_compressor;  //Compressor Relay	
-
-	CameraServo * camera_servo;  //Servo to move the camera
+	
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
 	AutonomousMode *autonomous;
@@ -47,13 +43,11 @@ public:
 
 		joystick = new Joystick(1);  //Create driver joystick (first slot in DS)
 		myGyro = new Gyro(1);  //Create Gyro on port 1
-//		sonic = new EV4Sonic(2);  //Create Sonic senor on port 2
 
 		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
 
 		m_compressor = new Compressor (1, 1);	//creates the compressor  (Spike on Relay 1, Pressure Switch on Digital I/O 1)
 
-		camera_servo = new CameraServo(10);  //Servo to turn camera
 		pneumatics = new Pneumatics();  //Object for shooting arm pneumatics
 
 		robotArm = new Arm();  //Arm for lifting the ball
@@ -68,15 +62,11 @@ public:
 	 */
 	
 	void Autonomous() {
-		bool isRight = ds->GetDigitalIn(3);
 		if (ds->GetDigitalIn(1)) {
-			autonomous->OneBall(isRight);
+			autonomous->OneBall();
 		}
 		else if (ds->GetDigitalIn(2)) 
 			autonomous->TwoBall();
-		
-		else
-			autonomous->OneBall(isRight);
 	}
 
 
@@ -107,36 +97,10 @@ public:
 		//User viewing for gyro readout
 		int anglei;
 		//If robot is in field-oriented or robot-oriented
-		bool isFieldOriented = true;  //Start out in field-oriented mode
-
-		//Variables for calculating average values of sensors
-//		int dataSize = 10;
-//		float distance[dataSize];
-//		float avg;
-//		int avgi;  //User viewing for distance sensor
-//		int loopCount = 0;
+		bool isFieldOriented = false;  //Start out in field-oriented mode
 
 		//Tele-Op Mode
-		while (IsOperatorControl())
-		{
-			//ULTRASONIC things~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//			//loopCount resets the data size back to 0
-//			loopCount++;
-//			if(loopCount >= dataSize){
-//				loopCount = 0;}
-//			distance[loopCount] = sonic->GetDistanceIN();
-//
-//			int i;
-//			// Calculates average of Sensors
-//			for (i = dataSize - 1; i >= 0; i--){ 
-//				distance[i] = sonic->GetDistanceIN();
-//			}
-//			avg = 0;
-//			for (int i = 0; i < dataSize; i++) {
-//				avg += distance[i];
-//			}
-			// Returns the average distance 
-//			avg = avg / dataSize;
+		while (IsOperatorControl()) {
 
 			//GYRO/FIELD-ORIENTED Stuff~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			angle = myGyro->GetAngle();  //Get the angle of the gyro
@@ -167,27 +131,12 @@ public:
 
 			//Make Gyro/Distance Sensor an integer for user viewing
 			anglei = static_cast<int>(angle);
-			//avgi = static_cast<int>(avg);
-
-			//Output all interesting values to the SmartDashboard
-			//SmartDashboard::PutNumber("Range:",avgi);
-			SmartDashboard::PutNumber("Power Level",throttle);
-			SmartDashboard::PutNumber("Gyro:",anglei);
-			SmartDashboard::PutBoolean("Field Oriented:", isFieldOriented);
 
 			//Shooter actions (includes full shoot and "pass" shoot)
 			pneumatics->Shooter();
 
-			//Turns the camera
-			camera_servo->turnCamera();
-
 			//Arm actions (includes raise arm, lower arm, and automatic up/down)
 			robotArm->OperateArm();
-
-			
-			
-
-
 		}
 	}
 };

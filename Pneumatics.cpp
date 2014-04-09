@@ -35,6 +35,7 @@ void Pneumatics::Shooter(){
 
 Pneumatics::Pneumatics (){
 	shooterSolenoid1 = new DoubleSolenoid (1, 7); //MIDDLE solenoid
+	shooterSolenoid1 = new DoubleSolenoid (7, 1); //MIDDLE solenoid
 	shooterSolenoid2 = new DoubleSolenoid (2, 6);
 	shooterSolenoid3 = new DoubleSolenoid (3, 4);
 	joystick = new Joystick(2);  //xbox controller
