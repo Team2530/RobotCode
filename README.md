@@ -3,11 +3,13 @@ Team2530-RobotCode
 
 Code for robot - Please use appropriate names
 
-THINGS TO DO:
+THINGS TO DO BEFORE STATE:
 
--Add your name to the "Contributors" comment in Team2530.cpp!
+-Improve upon Arm Code (Variable Speed Control)
 
--Get Kinect to work for autonomous.
+-Remove unnecessariy things (like isRight)
+
+-Implement CheezyVision for autonomous
 
 
 THINGS DONE:
@@ -17,3 +19,5 @@ THINGS DONE:
 -Arm code works fully
 
 -Automatic mode for arm
+
+-Add your name to the "Contributors" comment in Team2530.cpp!
