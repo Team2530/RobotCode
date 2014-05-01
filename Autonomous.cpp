@@ -2,60 +2,18 @@
 #include "Autonomous.h"
 
 
-void AutonomousMode::OneBall(bool isRight) {
-	//Kinect code -- could be any of these 3 scenarios
-#if 0
-	if (rightArm->GetTrigger() || rightArm->GetTop()) {
-		robotArm->RaiseArm();}
-
-	if (rightArm->GetY() || rightArm->GetX()) {
-		robotArm->RaiseArm();}
-
-	if (rightArm->GetTwist() == 0){
-		robotArm->RaiseArm();}
-#endif
-	if (isRight && rightArm->GetTrigger()) {  //Kinect stuff
+void AutonomousMode::OneBall() {
 		Drive();
-		pneumatics->FireShooter();
-		Wait(.1);
-		pneumatics->RetractCylinder();
-	}
-	else if (isRight && !rightArm->GetTrigger()) {
-		Drive();
-		
 		pneumatics->FireShooter();
 		Wait(1);
 		pneumatics->RetractCylinder();
-	}
-	else if (! isRight && rightArm->GetTrigger()){
-		Drive();
-		pneumatics->FireShooter();
-		Wait(.1);
-		pneumatics->RetractCylinder();
-	}
-	else {
-		Drive();
-	
-		pneumatics->FireShooter();
-		Wait(.1);
-		pneumatics->RetractCylinder();
-	}
 }
 
 void AutonomousMode::TwoBall() {
-	if (true) { //Kinect stuff
 		robotArm->RaiseArm();
 		Wait(.2);
 		robotArm->LowerArm();
 		Drive();
-	}
-	else {
-		
-		robotArm->RaiseArm();
-		Wait(.2);	
-		robotArm->LowerArm();
-		Drive();
-	}
 }
 //Drive forward
 void AutonomousMode::Drive() {

@@ -17,7 +17,7 @@ class AutonomousMode {
 		
 public:
 	AutonomousMode(MecanumDrive *drive, Gyro *gyro, Pneumatics *pneumatic, Arm *myArm);
-	void AutonomousMode::OneBall(bool isRight);
+	void AutonomousMode::OneBall();
 	void AutonomousMode::TwoBall();
 	void AutonomousMode::Drive();
 };
