@@ -10,9 +10,9 @@ void AutonomousMode::OneBall() {
 }
 
 void AutonomousMode::TwoBall() {
-		robotArm->RaiseArm();
+		robotArm->RaiseArm(0.9);
 		Wait(.2);
-		robotArm->LowerArm();
+		robotArm->LowerArm(0.9);
 		Drive();
 }
 //Drive forward
