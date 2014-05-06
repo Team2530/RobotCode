@@ -6,13 +6,13 @@ Arm::Arm() {
 	joystick = new Joystick(1);
 	automatic = false;
 }
-void Arm::RaiseArm() {
+void Arm::RaiseArm(float value) {
 	automatic = false;
-	raiseArm->SetSpeed(1);
+	raiseArm->SetSpeed(value);
 }
-void Arm::LowerArm() {
+void Arm::LowerArm(float value) {
 	automatic = false;
-	raiseArm->SetSpeed(-1);
+	raiseArm->SetSpeed(-value);
 }
 //Automatically lowers and raises the arm all the way to the top/bottom on the press of a button
 void Arm::AutoArm() {
@@ -30,14 +30,16 @@ void Arm::AutoArm() {
 //Controls motion of arm
 void Arm::OperateArm() {
 	AutoArm();
-	//Controlled by right analog stick, and hat switch on top of joystick 
-	if ((xboxController->GetRawAxis(5) >= 0.5) || (joystick->GetRawAxis(6) >= 0.5))
-		RaiseArm();
-	else if ((xboxController->GetRawAxis(5) <= -0.5) || (joystick->GetRawAxis(6) <= -0.5))
-		LowerArm();
+	//Controlled by right analog stick, and hat switch on top of joystick
+	RaiseArm(xboxController->GetRawAxis(5));
+	
+	if (joystick->GetRawAxis(6) >= 0.0)
+		RaiseArm(0.9);
+	else if (joystick->GetRawAxis(6) <= -0.0)
+		LowerArm(0.9);
 	else if (!automatic)
-		raiseArm->SetSpeed(0);
-	else if (xboxController->GetRawButton(5) || xboxController->GetRawButton(6))
+		StopArm();
+	else
 		StopArm();
 }
 

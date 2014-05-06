@@ -8,8 +8,8 @@ class Arm {
 	bool automatic;  //controls automatic mode
 public:
 	Arm();
-	void RaiseArm();
-	void LowerArm();
+	void RaiseArm(float value);
+	void LowerArm(float value);
 	void OperateArm();
 	void AutoArm();
 	void StopArm();
