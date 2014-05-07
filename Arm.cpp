@@ -1,5 +1,6 @@
 #include "Arm.h"
 #include "WPILib.h"
+#include <Math.h>
 Arm::Arm() {
 	raiseArm = new Jaguar(9);  //Creat jag arm motor
 	xboxController = new Joystick(2);
@@ -30,16 +31,17 @@ void Arm::AutoArm() {
 //Controls motion of arm
 void Arm::OperateArm() {
 	AutoArm();
-	//Controlled by right analog stick, and hat switch on top of joystick
-	RaiseArm(xboxController->GetRawAxis(5));
+	//Controlled by right analog stick
+	if (fabsf(xboxController->GetRawAxis(5)) >= 0.05) {  //Absolute value of controller stick
+		RaiseArm(xboxController->GetRawAxis(5));
+	}
 	
+	//Controlled by hat switch on top of joystick
 	if (joystick->GetRawAxis(6) >= 0.0)
 		RaiseArm(0.9);
 	else if (joystick->GetRawAxis(6) <= -0.0)
 		LowerArm(0.9);
 	else if (!automatic)
-		StopArm();
-	else
 		StopArm();
 }
 
