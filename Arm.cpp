@@ -32,14 +32,14 @@ void Arm::AutoArm() {
 void Arm::OperateArm() {
 	AutoArm();
 	//Controlled by right analog stick
-	if (fabsf(xboxController->GetRawAxis(5)) >= 0.05) {  //Absolute value of controller stick
+	if (xboxController->GetRawAxis(5) >= 0.2 || xboxController->GetRawAxis(5) <= -0.2) {  //Absolute value of controller stick
 		RaiseArm(xboxController->GetRawAxis(5));
 	}
 	
 	//Controlled by hat switch on top of joystick
-	if (joystick->GetRawAxis(6) >= 0.0)
+	else if (joystick->GetRawAxis(6) > 0.0)
 		RaiseArm(0.9);
-	else if (joystick->GetRawAxis(6) <= -0.0)
+	else if (joystick->GetRawAxis(6) < -0.0)
 		LowerArm(0.9);
 	else if (!automatic)
 		StopArm();
