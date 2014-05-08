@@ -42,7 +42,7 @@ void MecanumDrive::GetJoystickValues(float &magnitude, float &direction, float &
 	throttle = joystick->GetTwist();  //Throttle<>Twist
 
 	//Set Deadzones
-	if (magnitude < 0.030) {
+	if (magnitude < 0.08) {
 		magnitude = 0;
 	}
 	if (twist < 0.2 && twist > -0.2) {
