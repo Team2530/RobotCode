@@ -1,6 +1,8 @@
 #include "WPILib.h"
 #include "LEDs.h"
-
+/* LED Driver program for Ishaan's digital LEDs
+ * Documentation is in the programming folder on Google Drive
+ */
 LEDs::LEDs() {
 	//Initialize DigitalIOs for LEDs
 	dig2 = new DigitalOutput(2);
@@ -32,6 +34,22 @@ void LEDs::TeleDriving() {
 	dig4->Set(1);
 	dig5->Set(1);
 	dig6->Set(1);
+};
+void LEDs::ArmUp() {
+//	[0, 0, 1, 1, 0]
+	dig2->Set(0);
+	dig3->Set(0);
+	dig4->Set(1);
+	dig5->Set(1);
+	dig6->Set(0);
+};
+void LEDs::ArmDown() {
+//	[0, 0, 1, 0, 1]
+	dig2->Set(0);
+	dig3->Set(0);
+	dig4->Set(1);
+	dig5->Set(0);
+	dig6->Set(1	);
 };
 void LEDs::Fire() {
 //	[0, 1, 0, 1, 1]

@@ -1,29 +1,33 @@
 #include "Arm.h"
 #include "WPILib.h"
-#include <Math.h>
+
 Arm::Arm() {
 	raiseArm = new Jaguar(9);  //Creat jag arm motor
 	xboxController = new Joystick(2);
 	joystick = new Joystick(1);
 	automatic = false;
+	robotLEDs = new LEDs();
 }
 void Arm::RaiseArm(float value) {
 	automatic = false;
 	raiseArm->SetSpeed(value);
+	robotLEDs->ArmUp();
+	
 }
 void Arm::LowerArm(float value) {
 	automatic = false;
 	raiseArm->SetSpeed(-value);
+	robotLEDs->ArmDown();
 }
 //Automatically lowers and raises the arm all the way to the top/bottom on the press of a button
 void Arm::AutoArm() {
 
 	if (xboxController->GetRawButton(3)) {
-		raiseArm->SetSpeed(1);
+		RaiseArm();
 		automatic = true;
 	}
 	else if (xboxController->GetRawButton(4)) {
-		raiseArm->SetSpeed(-1);
+		LowerArm(1);
 		automatic = true;
 	}
 }
@@ -38,9 +42,9 @@ void Arm::OperateArm() {
 	
 	//Controlled by hat switch on top of joystick
 	else if (joystick->GetRawAxis(6) > 0.0)
-		RaiseArm(0.9);
+		RaiseArm(1);
 	else if (joystick->GetRawAxis(6) < -0.0)
-		LowerArm(0.9);
+		LowerArm(1);
 	else if (!automatic)
 		StopArm();
 }

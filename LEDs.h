@@ -14,6 +14,8 @@ public:
 	void Disabled();
 	void AutoDriving();
 	void TeleDriving();
+	void ArmUp();
+	void ArmDown();
 	void Fire();
 	void SoftFire();
 	void HumanLoad();
