@@ -1,4 +1,6 @@
 #include "WPILib.h"
+#include "LEDs.h"
+
 #ifndef _MECANUMDRIVE_H
 #define _MECANUMDRIVE_H
 class MecanumDrive {
@@ -9,6 +11,7 @@ class MecanumDrive {
 	Victor *vic6;
 	Victor *vic3;
 	Victor *vic5;
+	LEDs *robotLEDs;
 
 public:
 	MecanumDrive();

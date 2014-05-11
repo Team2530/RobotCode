@@ -3,6 +3,7 @@
 #include "Pneumatics.h"
 #include "KinectStick.h"
 #include "Arm.h"
+#include "LEDs.h"
 
 
 class AutonomousMode {

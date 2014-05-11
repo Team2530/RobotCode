@@ -15,7 +15,9 @@ MecanumDrive::MecanumDrive() {
 
 	myRobot = new RobotDrive(vic5,vic3,vic6,vic4);  //FrontLeft, RearLeft, FrontRight, RearRight
 	myRobot->SetExpiration(0.1);  //Update the motors at least every 100ms.
-
+	
+	robotLEDs = new LEDs();
+	
 	//Invert motors 5 and 3
 	myRobot->SetInvertedMotor(RobotDrive::kFrontLeftMotor,true);
 	myRobot->SetInvertedMotor(RobotDrive::kRearLeftMotor,true);
@@ -28,10 +30,12 @@ MecanumDrive::MecanumDrive() {
 void MecanumDrive::Drive_FieldOriented(float mag, float dir, float twist, float angle) {	
 	dir -= angle;  //Drive with Gyro correction
 	myRobot->MecanumDrive_Polar(mag,dir,twist);
+	robotLEDs->TeleDriving();
 };
 
 void MecanumDrive::Drive_RobotOriented(float mag, float dir, float twist) {
 	myRobot->MecanumDrive_Polar(mag,dir,twist);
+	robotLEDs->TeleDriving();
 };
 
 void MecanumDrive::GetJoystickValues(float &magnitude, float &direction, float &twist, float &throttle) {

@@ -5,6 +5,7 @@
 #include "Arm.h"
 #include "KinectStick.h"
 #include "Autonomous.h"
+#include "LEDs.h"
 
 /*
  * This is the final code for Team 2530's robot, Humperdinck.
@@ -29,6 +30,8 @@ class Team2530 : public SimpleRobot {
 	MecanumDrive *myDrive;  //MecanumDrive object
 	Arm *robotArm;  //Arm object
 	AutonomousMode *autonomous;
+	
+	LEDs *robotLEDs;  //LED object
 
 	enum							// Driver Station jumpers to control program operation
 	{ ARCADE_MODE = 1,				// Tank/Arcade jumper is on DS Input 1 (Jumper present is arcade)
@@ -52,6 +55,8 @@ public:
 
 		robotArm = new Arm();  //Arm for lifting the ball
 		autonomous = new AutonomousMode(myDrive, myGyro, pneumatics, robotArm);
+		
+		robotLEDs = new LEDs();
 
 	}
 
@@ -63,10 +68,21 @@ public:
 	
 	void Autonomous() {
 		if (ds->GetDigitalIn(1)) {
+			robotLEDs->AutoDriving();
 			autonomous->OneBall();
+			robotLEDs->Fire();
 		}
-		else if (ds->GetDigitalIn(2)) 
+		else if (ds->GetDigitalIn(2)) {
+			robotLEDs->AutoDriving();
 			autonomous->TwoBall();
+			robotLEDs->Fire();
+		}
+		else {
+			robotLEDs->AutoDriving();
+			autonomous->OneBall();
+			robotLEDs->Fire();
+		}
+		
 	}
 
 
@@ -128,7 +144,6 @@ public:
 			else {
 				myDrive->Drive_RobotOriented(throttle * magnitude, direction, throttle * twist);
 			}
-
 			//Make Gyro/Distance Sensor an integer for user viewing
 			anglei = static_cast<int>(angle);
 
@@ -137,6 +152,11 @@ public:
 
 			//Arm actions (includes raise arm, lower arm, and automatic up/down)
 			robotArm->OperateArm();
+		}
+	}
+	void Disabled() {
+		while (ds->IsDisabled()) {
+			robotLEDs->Disabled();
 		}
 	}
 };
