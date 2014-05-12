@@ -30,12 +30,12 @@ MecanumDrive::MecanumDrive() {
 void MecanumDrive::Drive_FieldOriented(float mag, float dir, float twist, float angle) {	
 	dir -= angle;  //Drive with Gyro correction
 	myRobot->MecanumDrive_Polar(mag,dir,twist);
-	robotLEDs->TeleDriving();
+	robotLEDs->TeleDriving(robotLEDs->GetLoading());
 };
 
 void MecanumDrive::Drive_RobotOriented(float mag, float dir, float twist) {
 	myRobot->MecanumDrive_Polar(mag,dir,twist);
-	robotLEDs->TeleDriving();
+	robotLEDs->TeleDriving(robotLEDs->GetLoading());
 };
 
 void MecanumDrive::GetJoystickValues(float &magnitude, float &direction, float &twist, float &throttle) {

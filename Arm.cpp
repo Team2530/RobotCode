@@ -11,22 +11,22 @@ Arm::Arm() {
 void Arm::RaiseArm(float value) {
 	automatic = false;
 	raiseArm->SetSpeed(value);
-	robotLEDs->ArmUp();
+	robotLEDs->ArmUp(robotLEDs->GetLoading());
 	
 }
 void Arm::LowerArm(float value) {
 	automatic = false;
 	raiseArm->SetSpeed(-value);
-	robotLEDs->ArmDown();
+	robotLEDs->ArmDown(robotLEDs->GetLoading());
 }
 //Automatically lowers and raises the arm all the way to the top/bottom on the press of a button
 void Arm::AutoArm() {
 
-	if (xboxController->GetRawButton(3)) {
-		RaiseArm();
+	if (xboxController->GetRawButton(1)) {
+		RaiseArm(1);
 		automatic = true;
 	}
-	else if (xboxController->GetRawButton(4)) {
+	else if (xboxController->GetRawButton(2)) {
 		LowerArm(1);
 		automatic = true;
 	}

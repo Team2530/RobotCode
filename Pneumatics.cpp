@@ -3,6 +3,7 @@
 
 //Shoot full -- shoots all 3 cylinders
 void Pneumatics::FireShooter(){
+	robotLEDs->Fire(robotLEDs->GetLoading());
 	shooterSolenoid1->Set(DoubleSolenoid::kReverse);
 	shooterSolenoid2->Set(DoubleSolenoid::kReverse);
 	shooterSolenoid3->Set(DoubleSolenoid::kReverse);
@@ -10,14 +11,15 @@ void Pneumatics::FireShooter(){
 
 //Pass shoot -- shoots only middle cylinder
 void Pneumatics::FireMiddleCylinder(){
-		shooterSolenoid1->Set(DoubleSolenoid::kReverse);
-	}
+	robotLEDs->SoftFire(robotLEDs->GetLoading());
+	shooterSolenoid1->Set(DoubleSolenoid::kReverse);
+}
 //Retracts all the cylinders
 void Pneumatics::RetractCylinder(){
 	shooterSolenoid1->Set(DoubleSolenoid::kForward);
 	shooterSolenoid2->Set(DoubleSolenoid::kForward);
 	shooterSolenoid3->Set(DoubleSolenoid::kForward);
-	
+
 
 }
 //Operat the shooter mechanism
@@ -38,4 +40,5 @@ Pneumatics::Pneumatics (){
 	shooterSolenoid2 = new DoubleSolenoid (2, 6);
 	shooterSolenoid3 = new DoubleSolenoid (3, 4);
 	joystick = new Joystick(2);  //xbox controller
+	robotLEDs = new LEDs();
 }

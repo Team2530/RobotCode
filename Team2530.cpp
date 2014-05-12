@@ -21,6 +21,7 @@
  */
 class Team2530 : public SimpleRobot {
 	Joystick *joystick;  //Joystick for driver's use
+	Joystick *xboxController;  //Xbox Controller for Operator use
 	DriverStation *ds;	// driver station object
 	Gyro *myGyro;  //Gyro
 	Pneumatics *pneumatics;  //Shooter/claw pneumatics object
@@ -41,10 +42,11 @@ class Team2530 : public SimpleRobot {
 public:
 	//Constructor for this robot subclass.
 	Team2530()
-	{
+	{		
 		ds = DriverStation::GetInstance();  //Create driver's station
 
 		joystick = new Joystick(1);  //Create driver joystick (first slot in DS)
+		xboxController = new Joystick(2);  //Xbox Controller on second slot in DS
 		myGyro = new Gyro(1);  //Create Gyro on port 1
 
 		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
@@ -70,17 +72,17 @@ public:
 		if (ds->GetDigitalIn(1)) {
 			robotLEDs->AutoDriving();
 			autonomous->OneBall();
-			robotLEDs->Fire();
+			robotLEDs->Fire(false);
 		}
 		else if (ds->GetDigitalIn(2)) {
 			robotLEDs->AutoDriving();
 			autonomous->TwoBall();
-			robotLEDs->Fire();
+			robotLEDs->Fire(false);
 		}
 		else {
 			robotLEDs->AutoDriving();
 			autonomous->OneBall();
-			robotLEDs->Fire();
+			robotLEDs->Fire(false);
 		}
 		
 	}
@@ -114,7 +116,7 @@ public:
 		int anglei;
 		//If robot is in field-oriented or robot-oriented
 		bool isFieldOriented = false;  //Start out in field-oriented mode
-
+		
 		//Tele-Op Mode
 		while (IsOperatorControl()) {
 
@@ -124,11 +126,20 @@ public:
 			if (joystick->GetRawButton(4)) {  //Disable Field Oriented
 				isFieldOriented = false;
 			}
-			if (joystick->GetRawButton(6)) {  //Enable Field Oriented
+			else if (joystick->GetRawButton(6)) {  //Enable Field Oriented
 				isFieldOriented = true;
 			}
-			if (joystick->GetRawButton(2)) {  //Reset the Gyro
+			else if (joystick->GetRawButton(2)) {  //Reset the Gyro
 				myGyro->Reset();
+			}
+			
+			//LEDs for Human Player
+			if (xboxController->GetRawButton(6) && !robotLEDs->GetLoading()) {  //Right Bumper && isn't loading already
+				robotLEDs->SetLoading(true);
+				robotLEDs->HumanLoad();  //Set LEDs to White to indicate readiness for loading
+			}
+			else if (xboxController->GetRawButton(6) && robotLEDs->GetLoading()) {  //Right Bumper and is loading
+				robotLEDs->SetLoading(false);
 			}
 
 			//DRIVE Stuff~~~~~~~~~~~~~~~~~~~~~~~~~~~
