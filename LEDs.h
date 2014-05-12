@@ -16,11 +16,11 @@ public:
 	bool GetLoading();
 	void SetLoading(bool loading);
 	void AutoDriving();
-	void TeleDriving(bool loading);
-	void ArmUp(bool loading);
-	void ArmDown(bool loading);
-	void Fire(bool loading);
-	void SoftFire(bool loading);
+	void TeleDriving();
+	void ArmUp();
+	void ArmDown();
+	void Fire();
+	void SoftFire();
 	void HumanLoad();
 	
 };

@@ -44,9 +44,9 @@ void LEDs::AutoDriving() {  //Solid Yellow
 	dig5->Set(1);
 	dig6->Set(1);
 };
-void LEDs::TeleDriving(bool loading) {  //Solid Green
+void LEDs::TeleDriving() {  //Solid Green
 	//	[0, 0, 1, 1, 1]
-	if (!loading) {
+	if (!GetLoading()) {
 		dig2->Set(0);
 		dig3->Set(0);
 		dig4->Set(1);
@@ -54,9 +54,9 @@ void LEDs::TeleDriving(bool loading) {  //Solid Green
 		dig6->Set(1);
 	}
 };
-void LEDs::ArmUp(bool loading) {  //Rolling up
+void LEDs::ArmUp() {  //Rolling up
 	//	[0, 0, 1, 1, 0]
-	if (!loading) {
+	if (!GetLoading()) {
 		dig2->Set(0);
 		dig3->Set(0);
 		dig4->Set(1);
@@ -64,9 +64,9 @@ void LEDs::ArmUp(bool loading) {  //Rolling up
 		dig6->Set(0);
 	}
 };
-void LEDs::ArmDown(bool loading) {  //Rolling down
+void LEDs::ArmDown() {  //Rolling down
 	//	[0, 0, 1, 0, 1]
-	if (!loading) {
+	if (!GetLoading()) {
 		dig2->Set(0);
 		dig3->Set(0);
 		dig4->Set(1);
@@ -74,9 +74,9 @@ void LEDs::ArmDown(bool loading) {  //Rolling down
 		dig6->Set(1);
 	}
 };
-void LEDs::Fire(bool loading) {  //Magenta
+void LEDs::Fire() {  //Magenta
 	//	[0, 1, 0, 1, 1]
-	if (!loading) {
+	if (!GetLoading()) {
 		dig2->Set(0);
 		dig3->Set(1);
 		dig4->Set(0);
@@ -84,9 +84,9 @@ void LEDs::Fire(bool loading) {  //Magenta
 		dig6->Set(1);
 	}
 };
-void LEDs::SoftFire(bool loading) {  //Orange
+void LEDs::SoftFire() {  //Orange
 	//	[0, 0, 1, 0, 0]
-	if (!loading) {
+	if (!GetLoading()) {
 		dig2->Set(0);
 		dig3->Set(0);
 		dig4->Set(1);

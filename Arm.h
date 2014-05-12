@@ -10,7 +10,7 @@ class Arm {
 	LEDs *robotLEDs;
 	bool automatic;  //controls automatic mode
 public:
-	Arm();
+	Arm(LEDs *myLEDs);
 	void RaiseArm(float value);
 	void LowerArm(float value);
 	void OperateArm();

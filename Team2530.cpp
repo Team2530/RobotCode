@@ -41,25 +41,25 @@ class Team2530 : public SimpleRobot {
 
 public:
 	//Constructor for this robot subclass.
-	Team2530()
-	{		
+	Team2530() {
+		
 		ds = DriverStation::GetInstance();  //Create driver's station
 
+		robotLEDs = new LEDs();		
+		
 		joystick = new Joystick(1);  //Create driver joystick (first slot in DS)
 		xboxController = new Joystick(2);  //Xbox Controller on second slot in DS
 		myGyro = new Gyro(1);  //Create Gyro on port 1
 
-		myDrive = new MecanumDrive();  //Create a MecanumDrive (from MecanumDrive.h)
+		myDrive = new MecanumDrive(robotLEDs);  //Create a MecanumDrive (from MecanumDrive.h)
 
 		m_compressor = new Compressor (1, 1);	//creates the compressor  (Spike on Relay 1, Pressure Switch on Digital I/O 1)
 
-		pneumatics = new Pneumatics();  //Object for shooting arm pneumatics
+		pneumatics = new Pneumatics(robotLEDs);  //Object for shooting arm pneumatics
 
-		robotArm = new Arm();  //Arm for lifting the ball
+		robotArm = new Arm(robotLEDs);  //Arm for lifting the ball
 		autonomous = new AutonomousMode(myDrive, myGyro, pneumatics, robotArm);
 		
-		robotLEDs = new LEDs();
-
 	}
 
 	/*
@@ -72,17 +72,17 @@ public:
 		if (ds->GetDigitalIn(1)) {
 			robotLEDs->AutoDriving();
 			autonomous->OneBall();
-			robotLEDs->Fire(false);
+			robotLEDs->Fire();
 		}
 		else if (ds->GetDigitalIn(2)) {
 			robotLEDs->AutoDriving();
 			autonomous->TwoBall();
-			robotLEDs->Fire(false);
+			robotLEDs->Fire();
 		}
 		else {
 			robotLEDs->AutoDriving();
 			autonomous->OneBall();
-			robotLEDs->Fire(false);
+			robotLEDs->Fire();
 		}
 		
 	}

@@ -14,7 +14,7 @@ class MecanumDrive {
 	LEDs *robotLEDs;
 
 public:
-	MecanumDrive();
+	MecanumDrive(LEDs *myLEDs);
 	void Drive_FieldOriented(float mag, float dir, float twist, float angle);
 	void Drive_RobotOriented(float mag, float dir, float twist);
 	void GetJoystickValues(float &magnitude, float &direction, float &twist, float &throttle);

@@ -11,7 +11,7 @@ class Pneumatics {
 
 public:
 	void Shooter();
-	Pneumatics();
+	Pneumatics(LEDs *myLEDs);
 	void FireShooter();
 	void RetractCylinder();
 	void FireMiddleCylinder();
