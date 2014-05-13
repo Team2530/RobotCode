@@ -40,5 +40,5 @@ Pneumatics::Pneumatics (LEDs *myLEDs){
 	shooterSolenoid2 = new DoubleSolenoid (2, 6);
 	shooterSolenoid3 = new DoubleSolenoid (3, 4);
 	joystick = new Joystick(2);  //xbox controller
-	robotLEDs = new LEDs();
+	robotLEDs = myLEDs;
 }
