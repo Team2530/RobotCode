@@ -3,7 +3,6 @@
 
 //Shoot full -- shoots all 3 cylinders
 void Pneumatics::FireShooter(){
-	robotLEDs->Fire();
 	shooterSolenoid1->Set(DoubleSolenoid::kReverse);
 	shooterSolenoid2->Set(DoubleSolenoid::kReverse);
 	shooterSolenoid3->Set(DoubleSolenoid::kReverse);
