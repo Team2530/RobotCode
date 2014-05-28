@@ -49,7 +49,7 @@ public:
 		
 		joystick = new Joystick(1);  //Create driver joystick (first slot in DS)
 		xboxController = new Joystick(2);  //Xbox Controller on second slot in DS
-		myGyro = new Gyro(1);  //Create Gyro on port 1
+		myGyro = new Gyro(1);  //Create Gyro on port 1 (Analog)
 
 		myDrive = new MecanumDrive(robotLEDs);  //Create a MecanumDrive (from MecanumDrive.h)
 
